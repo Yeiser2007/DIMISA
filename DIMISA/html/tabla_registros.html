@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuarios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">Logo</a>
+    
+            <!-- Toggle button for mobile view -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Menu items -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Registros</a>
+                    </li>
+                    <!-- Dropdown menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Product 1</a></li>
+                            <li><a class="dropdown-item" href="#">Product 2</a></li>
+                            <li><a class="dropdown-item" href="#">Product 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+    
+                    <!-- Settings icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-gear"></i></a>
+                    </li>
+    
+                    <!-- Notifications icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
+                    </li>
+    
+                    <!-- User initials with dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="user-initials">JD</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container mt-5">
+    <h2>Formulario de Registro</h2>
+    <!-- Contenedor del Formulario -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form id="registroForm">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" placeholder="Nombre del usuario" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inicio">Inicio</label>
+                        <input type="time" class="form-control" id="inicio" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="fin">Fin</label>
+                        <input type="time" class="form-control" id="fin">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="descanso">Descanso (h)</label>
+                        <input type="number" class="form-control" id="descanso" step="0.01" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="capacidad">Capacidad (h)</label>
+                        <input type="number" class="form-control" id="capacidad" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="horas_extra">Horas Extra (h)</label>
+                        <input type="number" class="form-control" id="horas_extra" step="0.01">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="tiempo_libre">Tiempo Libre (h)</label>
+                        <input type="number" class="form-control" id="tiempo_libre" step="0.01">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Registro</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Barra de Filtros por D�as de la Semana -->
+    <div class="mb-4">
+        <h5>Semana: <span id="semanaActual"></span></h5>
+        <div class="btn-group">
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('mi�rcoles')">Mi�rcoles</button>
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('jueves')">Jueves</button>
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('viernes')">Viernes</button>
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('s�bado')">S�bado</button>
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('domingo')">Domingo</button>
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('lunes')">Lunes</button>
+            <button class="btn btn-outline-primary" onclick="filtrarPorDia('martes')">Martes</button>
+        </div>
+    </div>
+
+    <!-- Contenedor de la Tabla -->
+    <h2>Registros del D�a</h2>
+    <div class="mb-3">
+        <input type="text" id="buscador" class="form-control" placeholder="Buscar en tabla...">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Descanso</th>
+                    <th>Trabajo</th>
+                    <th>Capacidad</th>
+                    <th>Horas Extra</th>
+                    <th>Tiempo Libre</th>
+                </tr>
+            </thead>
+            <tbody id="registros-tbody">
+                <!-- Los registros ser�n insertados aqu� din�micamente -->
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success" id="exportExcel">Exportar a Excel</button>
+    <button class="btn btn-danger" id="exportPdf">Exportar a PDF</button>
+</div>
+
+<script>
+// Obtener el n�mero de semana actual
+function obtenerSemanaActual() {
+    const hoy = new Date();
+    const primerDiaAno = new Date(hoy.getFullYear(), 0, 1);
+    const diasTranscurridos = Math.floor((hoy - primerDiaAno) / (24 * 60 * 60 * 1000));
+    const semanaActual = Math.ceil((diasTranscurridos + primerDiaAno.getDay() + 1) / 7); // Se a�ade 1 para que el primer d�a cuente como semana 1
+    document.getElementById('semanaActual').textContent = semanaActual;
+}
+
+// Ejecutar la funci�n al cargar la p�gina
+obtenerSemanaActual();
+
+// Funci�n para filtrar por d�a de la semana
+function filtrarPorDia(dia) {
+    const registros = document.querySelectorAll('#registros-tbody tr');
+    registros.forEach(registro => {
+        const fechaRegistro = new Date(registro.cells[1].textContent);
+        const opciones = { weekday: 'long' };
+        const diaRegistro = fechaRegistro.toLocaleDateString('es-ES', opciones);
+        if (diaRegistro.toLowerCase() === dia.toLowerCase()) {
+            registro.style.display = '';
+        } else {
+            registro.style.display = 'none';
+        }
+    });
+}
+
+// Buscador en la tabla
+document.getElementById('buscador').addEventListener('keyup', function() {
+    const valorBusqueda = this.value.toLowerCase();
+    const filas = document.querySelectorAll('#registros-tbody tr');
+    
+    filas.forEach(fila => {
+        const textoFila = fila.textContent.toLowerCase();
+        fila.style.display = textoFila.includes(valorBusqueda) ? '' : 'none';
+    });
+});
+
+// Exportar a Excel
+document.getElementById('exportExcel').addEventListener('click', function() {
+    alert("Funci�n para exportar a Excel aqu�");
+    // L�gica de exportaci�n Excel (usar librer�as como SheetJS o implementaciones en el backend)
+});
+
+// Exportar a PDF
+document.getElementById('exportPdf').addEventListener('click', function() {
+    alert("Funci�n para exportar a PDF aqu�");
+    // L�gica de exportaci�n PDF (usar librer�as como jsPDF o implementaciones en el backend)
+});
+
+</script>
+
+</body>
+<style>html{
+ color:darkviolet;
+ font-size:25px;
+ font-weight:600;
+}
+</style><script>/*Here write your javascript code*/
+</script></html>

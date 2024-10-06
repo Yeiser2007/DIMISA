@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos de N�mina y Gr�fica</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Estilos personalizados para la tabla */
+        .table-responsive {
+            margin-top: 20px;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        .modified {
+            background-color: #ffe6e6; /* Color de fondo para campos modificados */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">Logo</a>
+    
+            <!-- Toggle button for mobile view -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Menu items -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Registros</a>
+                    </li>
+                    <!-- Dropdown menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Product 1</a></li>
+                            <li><a class="dropdown-item" href="#">Product 2</a></li>
+                            <li><a class="dropdown-item" href="#">Product 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+    
+                    <!-- Settings icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-gear"></i></a>
+                    </li>
+    
+                    <!-- Notifications icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
+                    </li>
+    
+                    <!-- User initials with dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="user-initials">JD</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container mt-5">
+    <h2 class="text-center">Registros de N�mina</h2>
+    
+    <!-- Filtro de b�squeda y botones de exportaci�n -->
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar empleado...">
+        </div>
+        <div>
+            <button class="btn btn-primary" id="exportPDF">Exportar a PDF</button>
+            <button class="btn btn-success" id="exportExcel">Exportar a Excel</button>
+        </div>
+    </div>
+
+    <!-- Tabla de N�mina -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Empleado</th>
+                    <th>Sueldo Bruto</th>
+                    <th>Sueldo Neto</th>
+                    <th>D�as Trabajados</th>
+                    <th>Horas Extras</th>
+                    <th>ISR</th>
+                    <th>IMSS</th>
+                    <th>Subtotal</th>
+                    <th>Neto a Pagar</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="salaryTableBody">
+                <!-- Datos de ejemplo, debes reemplazar con los datos reales -->
+                <tr>
+                    <td>1</td>
+                    <td>Juan P�rez</td>
+                    <td contenteditable="true" class="editable">10,000</td>
+                    <td contenteditable="true" class="editable">8,500</td>
+                    <td contenteditable="true" class="editable">15</td>
+                    <td contenteditable="true" class="editable">5</td>
+                    <td contenteditable="true" class="editable">1,200</td>
+                    <td contenteditable="true" class="editable">800</td>
+                    <td contenteditable="true" class="editable">9,500</td>
+                    <td contenteditable="true" class="editable">8,500</td>
+                    <td>
+                        <button class="btn btn-warning validate-btn">Validar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Mar�a L�pez</td>
+                    <td contenteditable="true" class="editable">12,000</td>
+                    <td contenteditable="true" class="editable">9,800</td>
+                    <td contenteditable="true" class="editable">20</td>
+                    <td contenteditable="true" class="editable">8</td>
+                    <td contenteditable="true" class="editable">1,400</td>
+                    <td contenteditable="true" class="editable">900</td>
+                    <td contenteditable="true" class="editable">11,100</td>
+                    <td contenteditable="true" class="editable">9,800</td>
+                    <td>
+                        <button class="btn btn-warning validate-btn">Validar</button>
+                    </td>
+                </tr>
+                <!-- M�s datos -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Gr�fica de N�mina -->
+    <div class="mt-5">
+        <h3 class="text-center">Gr�fica de Sueldos</h3>
+        <canvas id="salaryChart"></canvas>
+    </div>
+</div>
+
+<script>
+    // Datos para la gr�fica (debes reemplazar estos datos con los reales de tu base de datos)
+    const ctx = document.getElementById('salaryChart').getContext('2d');
+    const salaryChart = new Chart(ctx, {
+        type: 'bar', // Puedes cambiar a 'line', 'pie', 'doughnut', etc.
+        data: {
+            labels: ['Juan P�rez', 'Mar�a L�pez'], // Nombres de los empleados
+            datasets: [{
+                label: 'Sueldo Neto',
+                data: [8500, 9800], // Sueldos netos de los empleados
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Filtrado de la tabla
+    const searchInput = document.getElementById('searchInput');
+    const salaryTableBody = document.getElementById('salaryTableBody');
+
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        const rows = salaryTableBody.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let rowVisible = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().includes(filter)) {
+                    rowVisible = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = rowVisible ? '' : 'none';
+        }
+    });
+
+    // Funcionalidad de exportaci�n (PDF y Excel)
+    document.getElementById('exportPDF').addEventListener('click', function() {
+        // Aqu� agregar l�gica para exportar a PDF
+        alert('Exportar a PDF (l�gica a implementar)');
+    });
+
+    document.getElementById('exportExcel').addEventListener('click', function() {
+        // Aqu� agregar l�gica para exportar a Excel
+        alert('Exportar a Excel (l�gica a implementar)');
+    });
+
+    // Validar datos de cada fila
+    salaryTableBody.addEventListener('click', function(event) {
+        if (event.target.classList.contains('validate-btn')) {
+            const row = event.target.closest('tr');
+            const editableCells = row.querySelectorAll('.editable');
+            let isValid = true;
+
+            editableCells.forEach(cell => {
+                // Simulaci�n de validaci�n simple
+                if (!validateCell(cell.textContent)) {
+                    cell.classList.add('modified'); // Marca la celda como modificada
+                    isValid = false;
+                } else {
+                    cell.classList.remove('modified'); // Limpia la marca si es v�lido
+                }
+            });
+
+            if (isValid) {
+                alert('Todos los datos son correctos.');
+            } else {
+                alert('Algunos datos son incorrectos. Revisa los campos resaltados.');
+            }
+        }
+    });
+
+    // Funci�n para validar contenido de la celda (ejemplo simple)
+    function validateCell(value) {
+        return value.trim() !== ''; // Ejemplo: no permitir campos vac�os
+    }
+</script>
+
+</body>
+<style>html{
+ color:darkviolet;
+ font-size:25px;
+ font-weight:600;
+}
+</style><script>/*Here write your javascript code*/
+</script></html>
